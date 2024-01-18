@@ -25,4 +25,8 @@ describe('Customer unit tests', () => {
     customer.deactivate();
     expect(customer.isActive()).toBe(false);
   });
+  it("Should throw when activating customer without address", () => {
+    const customer = new Customer('1', 'John Doe');
+    expect(() => customer.activate()).toThrow("Address is mandatory to activate customer");
+  });
 })
