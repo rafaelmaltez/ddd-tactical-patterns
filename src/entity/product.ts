@@ -29,5 +29,8 @@ export default class Product {
     if (this._name.length === 0) {
       throw new Error("Name cannot be empty");
     }
+    if (this._price <= 0) {
+      throw new Error("Price cannot be 0 or less");
+    }
   }
 }
