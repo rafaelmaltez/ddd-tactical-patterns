@@ -24,4 +24,9 @@ describe('Product unit tests', () => {
     product.changePrice(200);
     expect(product.price).toBe(200);
   });
+  it('Should throw when price is 0 or less after change', () => {
+    const product = new Product('1', 'Product 1', 150);
+    expect(() => product.changePrice(0)).toThrow("Price cannot be 0 or less");
+    expect(() => product.changePrice(-15)).toThrow("Price cannot be 0 or less");
+  });
 })
