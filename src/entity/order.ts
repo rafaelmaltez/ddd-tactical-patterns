@@ -21,6 +21,9 @@ export default class Order {
     if (this._customerId.length === 0) {
       throw new Error("CustomerId cannot be empty");
     }
+    if (this._items.length === 0) {
+      throw new Error("Items cannot be empty");
+    }
   }
 
   total() {
