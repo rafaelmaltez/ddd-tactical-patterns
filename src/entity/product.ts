@@ -26,5 +26,8 @@ export default class Product {
     if (this._id.length === 0) {
       throw new Error("Id cannot be empty");
     }
+    if (this._name.length === 0) {
+      throw new Error("Name cannot be empty");
+    }
   }
 }
