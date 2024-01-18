@@ -29,4 +29,22 @@ export default class OrderItem {
   orderItemTotal() {
     return this._price * this._quantity;
   }
+
+  validate() {
+    if (this._id.length === 0) {
+      throw new Error("Id cannot be empty");
+    }
+    if (this._productId.length === 0) {
+      throw new Error("ProductId cannot be empty");
+    }
+    if (this._name.length === 0) {
+      throw new Error("Name cannot be empty");
+    }
+    if (this._price <= 0) {
+      throw new Error("Price cannot be 0 or less");
+    }
+    if (this._quantity <= 0) {
+      throw new Error("Quantity cannot be 0 or less");
+    }
+  }
 }
