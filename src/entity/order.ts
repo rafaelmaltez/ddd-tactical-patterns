@@ -10,9 +10,17 @@ export default class Order {
     this._id = id;
     this._customerId = customerId;
     this._items = items;
+    this._total = this.total();
+    this.validate();
   }
 
-  get total() {
+  validate() {
+    if (this._id.length === 0) {
+      throw new Error("Id cannot be empty");
+    }
+  }
+
+  total() {
     return this._items.reduce((total, item) => total + item.price, 0);
   }
 }
