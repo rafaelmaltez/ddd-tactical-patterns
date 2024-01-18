@@ -41,6 +41,11 @@ export default class Customer {
 	deactivate() {
 		this._active = false;
 	}
+
+	isActive() {
+		return this._active;
+	}
+
 	set address(address: Address) {
 		this._address = address;
 	}
