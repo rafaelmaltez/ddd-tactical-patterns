@@ -15,4 +15,8 @@ describe('Product unit tests', () => {
     product.changeName('Product 2');
     expect(product.name).toBe('Product 2');
   })
+  it('Should throw when name is empty after change', () => {
+    const product = new Product('1', 'Product 1', 150);
+    expect(() => product.changeName('')).toThrow("Name cannot be empty");
+  });
 })
