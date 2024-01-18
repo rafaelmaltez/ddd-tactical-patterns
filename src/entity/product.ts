@@ -27,6 +27,11 @@ export default class Product {
     return this._price;
   }
 
+  changePrice(price: number) {
+    this._price = price;
+    this.validate();
+  }
+
   validate() {
     if (this._id.length === 0) {
       throw new Error("Id cannot be empty");

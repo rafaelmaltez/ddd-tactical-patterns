@@ -19,4 +19,9 @@ describe('Product unit tests', () => {
     const product = new Product('1', 'Product 1', 150);
     expect(() => product.changeName('')).toThrow("Name cannot be empty");
   });
+  it('Should change price', () => {
+    const product = new Product('1', 'Product 1', 150);
+    product.changePrice(200);
+    expect(product.price).toBe(200);
+  });
 })
