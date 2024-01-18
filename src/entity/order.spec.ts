@@ -12,8 +12,8 @@ describe('Order unit tests', () => {
     expect(() => new Order('1', '1', [])).toThrow("Items cannot be empty");
   });
   it('Should calculate total', () => {
-    const item1 = new OrderItem('1', 'item1', 10, 1);
-    const item2 = new OrderItem('2', 'item2', 20, 1);
+    const item1 = new OrderItem('1', 'p1', 'item1', 10, 1);
+    const item2 = new OrderItem('2', 'p2', 'item2', 20, 1);
     const order = new Order('1', '1', [item1, item2]);
     expect(order.total()).toBe(30);
   })
