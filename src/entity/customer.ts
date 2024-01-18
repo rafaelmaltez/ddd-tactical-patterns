@@ -13,6 +13,10 @@ export default class Customer {
 		this.validate();
 	}
 
+	get name() {
+		return this._name;
+	}
+
 	validate() {
 		if (this._id.length === 0) {
 			throw new Error("Id cannot be empty");
