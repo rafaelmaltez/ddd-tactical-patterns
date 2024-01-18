@@ -10,4 +10,9 @@ describe('Product unit tests', () => {
   it('Should throw when price is 0 or less', () => {
     expect(() => new Product('1', '1', 0)).toThrow("Price cannot be 0 or less");
   });
+  it('Should change name', () => {
+    const product = new Product('1', 'Product 1', 150);
+    product.changeName('Product 2');
+    expect(product.name).toBe('Product 2');
+  })
 })

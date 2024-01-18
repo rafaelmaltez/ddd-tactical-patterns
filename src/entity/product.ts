@@ -18,6 +18,11 @@ export default class Product {
     return this._name;
   }
 
+  changeName(name: string) {
+    this._name = name;
+    this.validate();
+  }
+
   get price() {
     return this._price;
   }
