@@ -41,6 +41,10 @@ export default class Customer {
 		this._name = newName;
 	}
 
+	changeAddress(address: Address) {
+		this._address = address;
+	}
+
 	activate() {
 		if (!this._address) {
 			throw new Error("Address is mandatory to activate customer");
