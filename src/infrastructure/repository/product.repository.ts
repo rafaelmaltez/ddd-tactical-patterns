@@ -23,8 +23,6 @@ export default class ProductRepository implements ProductRepositoryInterface {
       price: entity.price
     })
 
-
-
   }
   async find(id: string): Promise<Product> {
     const productModel = await ProductModel.findOne({ where: { id } })

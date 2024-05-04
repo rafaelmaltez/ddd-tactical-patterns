@@ -57,6 +57,9 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
       customerModel.city
     );
     customer.changeAddress(address);
+    if (customerModel.active) {
+      customer.activate();
+    }
     return customer;
   }
 
