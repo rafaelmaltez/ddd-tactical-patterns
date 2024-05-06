@@ -27,6 +27,14 @@ export default class OrderItem {
     return this._price;
   }
 
+  get quantity() {
+    return this._quantity;
+  }
+
+  get productId() {
+    return this._productId;
+  }
+
   orderItemTotal() {
     return this._price * this._quantity;
   }

@@ -6,11 +6,12 @@ export default class Address {
   private _zip: string;
   private _state: string;
 
-  constructor(street: string, number: number, zip: string, city: string) {
+  constructor(street: string, number: number, zip: string, city: string, state: string) {
     this._street = street;
     this._number = number;
     this._city = city;
     this._zip = zip;
+    this._state = state;
     this.validate();
   }
 
@@ -28,6 +29,10 @@ export default class Address {
 
   get city(): string {
     return this._city;
+  }
+
+  get state() {
+    return this._state;
   }
 
   validate() {

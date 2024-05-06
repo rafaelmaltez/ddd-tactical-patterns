@@ -30,6 +30,9 @@ export default class CustomerModel extends Model {
   declare city: string;
 
   @Column({ allowNull: false })
+  declare state: string;
+
+  @Column({ allowNull: false })
   declare active: boolean;
 
   @Column({ allowNull: false })

@@ -27,6 +27,10 @@ export default class Customer {
 		return this._rewardPoints;
 	}
 
+	get address() {
+		return this._address;
+	}
+
 	validate() {
 		if (this._id.length === 0) {
 			throw new Error("Id cannot be empty");

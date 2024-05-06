@@ -1,10 +1,10 @@
 
-import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table, getModels } from 'sequelize-typescript';
 import ProductModel from './product.model';
 import OrderModel from './order.model';
 
 @Table({
-  tableName: "orders",
+  tableName: "order_items",
   timestamps: false
 })
 export default class OrderItemModel extends Model {
@@ -18,14 +18,17 @@ export default class OrderItemModel extends Model {
   declare product_id: string;
 
   @BelongsTo(() => ProductModel)
-  declare product: ProductModel;
+  declare product: Model<ProductModel>;
+
+  @Column({ allowNull: false })
+  declare price: number;
 
   @ForeignKey(() => OrderModel)
   @Column({ allowNull: false })
   declare order_id: string;
 
   @BelongsTo(() => OrderModel)
-  declare order: OrderModel;
+  declare order: Awaited<OrderModel>;
 
   @Column({ allowNull: false })
   declare quantity: number;
