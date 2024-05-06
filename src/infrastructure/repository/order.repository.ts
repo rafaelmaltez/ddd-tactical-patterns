@@ -31,9 +31,38 @@ export default class OrderRepository {
       item.id,
       item.product_id,
       item.name,
-      item.price, item.quantity
+      item.price,
+      item.quantity
     ))
     const order = new Order(orderModel.id, orderModel.customer_id, orderItems)
     return order;
   }
+
+  async update(entity: Order): Promise<void> {
+    const order = await OrderModel.findOne({ where: { id: entity.id } })
+    if (!order) throw new Error("Order not found!")
+
+    const sequelize = order.sequelize;
+
+    const transaction = await sequelize.transaction()
+    try {
+      await OrderItemModel.destroy({ where: { order_id: entity.id }, transaction })
+      const items = entity.items.map((item) => ({
+        id: item.id,
+        product_id: item.productId,
+        price: item.price,
+        order_id: order.id,
+        quantity: item.quantity,
+        name: item.name
+      }))
+      await OrderItemModel.bulkCreate(items, { transaction })
+      await order.update({
+        total: entity.total()
+      })
+      await transaction.commit()
+    } catch (error) {
+      transaction.rollback()
+    }
+  }
+
 }

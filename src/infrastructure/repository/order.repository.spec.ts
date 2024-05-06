@@ -103,6 +103,38 @@ describe("Order repository tests", () => {
     await expect(orderRepository.find("InexistentId")).rejects.toThrow("Order not found")
   })
 
+  it("Should update an order", async () => {
+    const customerRepository = new CustomerRepository();
+    const customer = new Customer("123", "Customer 1");
+    const address = new Address("Street 1", 1, "Zipcode 1", "City 1", "S1");
+    customer.address = address;
+    await customerRepository.create(customer);
 
+    const productRepository = new ProductRepository();
+    const product = new Product("1", "Product 1", 10);
+    await productRepository.create(product);
+
+    const orderItem = new OrderItem("1", product.id, product.name, product.price, 2)
+
+    const orderRepository = new OrderRepository();
+    const order = new Order("123", "123", [orderItem]);
+
+    await orderRepository.create(order);
+    const newProduct = new Product("2", "Product 2", 20);
+    await productRepository.create(newProduct);
+
+    const newOrderItem = new OrderItem("2", newProduct.id, newProduct.name, newProduct.price, 5)
+    order.addItem(newOrderItem)
+
+    await orderRepository.update(order)
+
+    const updatedOrder = await orderRepository.find(order.id)
+
+    expect(updatedOrder.items.length).toEqual(2)
+    expect(updatedOrder.items[1]).toEqual(newOrderItem)
+    expect(updatedOrder.total()).toEqual(120)
+
+
+  })
 
 });

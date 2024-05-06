@@ -26,6 +26,11 @@ export default class Order {
     return this._items;
   }
 
+  addItem(item: OrderItem) {
+    this._items.push(item);
+    this._total = this.total();
+  }
+
   validate() {
     if (this._id.length === 0) {
       throw new Error("Id cannot be empty");
