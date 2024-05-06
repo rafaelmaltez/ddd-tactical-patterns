@@ -1,4 +1,5 @@
 import Order from '../../domain/entity/order';
+import OrderItem from '../../domain/entity/order_item';
 import OrderItemModel from '../db/sequelize/model/order-item.model';
 import OrderModel from '../db/sequelize/model/order.model';
 
@@ -21,5 +22,18 @@ export default class OrderRepository {
       include: [{ model: OrderItemModel, as: 'items' }]
     })
 
+  }
+
+  async find(id: string): Promise<Order> {
+    const orderModel = await OrderModel.findOne({ where: { id }, include: ["items"] })
+    if (!orderModel) throw new Error("Order not found!")
+    const orderItems = orderModel.items.map((item) => new OrderItem(
+      item.id,
+      item.product_id,
+      item.name,
+      item.price, item.quantity
+    ))
+    const order = new Order(orderModel.id, orderModel.customer_id, orderItems)
+    return order;
   }
 }
