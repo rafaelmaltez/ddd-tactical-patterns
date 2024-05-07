@@ -133,8 +133,40 @@ describe("Order repository tests", () => {
     expect(updatedOrder.items.length).toEqual(2)
     expect(updatedOrder.items[1]).toEqual(newOrderItem)
     expect(updatedOrder.total()).toEqual(120)
-
-
   })
+
+
+  it("Should find all orders", async () => {
+    const customer = new Customer("123", "Customer 1");
+    const address = new Address("Street 1", 1, "Zipcode 1", "City 1", "S1");
+    customer.address = address;
+    const customerRepository = new CustomerRepository();
+    await customerRepository.create(customer);
+
+    const product = new Product("1", "Product 1", 10);
+    const productRepository = new ProductRepository();
+    await productRepository.create(product);
+
+    const orderItem = new OrderItem("1", product.id, product.name, product.price, 2)
+    const order1 = new Order("123", "123", [orderItem]);
+    const orderRepository = new OrderRepository();
+    await orderRepository.create(order1);
+
+    const orderItem2 = new OrderItem("2", product.id, product.name, product.price, 2)
+    const order2 = new Order("456", "123", [orderItem2]);
+    await orderRepository.create(order2);
+
+    const orderItem3 = new OrderItem("3", product.id, product.name, product.price, 2)
+    const order3 = new Order("789", "123", [orderItem3]);
+    await orderRepository.create(order3);
+
+    const orders = await orderRepository.findAll();
+
+    expect(orders.length).toEqual(3);
+    expect(orders[0]).toEqual(order1);
+    expect(orders[1]).toEqual(order2);
+    expect(orders[2]).toEqual(order3);
+  });
+
 
 });
