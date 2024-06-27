@@ -24,4 +24,16 @@ describe("Domain events unit tests", () => {
         expect(eventDispatcher.getEventHandlers["ProductCreated"].size).toBe(0)
         expect(eventDispatcher.getEventHandlers["ProductCreated"]).not.toContain(eventHandler)
     })
+    it("Should not register duplicated handlers", () => {
+        const eventDispatcher = new EventDispatcher();
+        const eventHandler = new SendEmailWhenProductIsCreatedHandler();
+
+        eventDispatcher.register("ProductCreated", eventHandler);
+        eventDispatcher.register("ProductCreated", eventHandler);
+
+        expect(eventDispatcher.getEventHandlers["ProductCreated"]).toBeDefined()
+        expect(eventDispatcher.getEventHandlers["ProductCreated"].size).toBe(1)
+        expect(eventDispatcher.getEventHandlers["ProductCreated"]).toContain(eventHandler)
+    })
+    
 })
