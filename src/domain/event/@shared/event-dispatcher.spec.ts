@@ -13,4 +13,15 @@ describe("Domain events unit tests", () => {
         expect(eventDispatcher.getEventHandlers["ProductCreated"]).toContain(eventHandler)
         
     })
+    it("Should unregister an event handler", () => {
+        const eventDispatcher = new EventDispatcher();
+        const eventHandler = new SendEmailWhenProductIsCreatedHandler();
+
+        eventDispatcher.register("ProductCreated", eventHandler);
+        eventDispatcher.unregister("ProductCreated", eventHandler);
+
+        expect(eventDispatcher.getEventHandlers["ProductCreated"]).toBeDefined()
+        expect(eventDispatcher.getEventHandlers["ProductCreated"].size).toBe(0)
+        expect(eventDispatcher.getEventHandlers["ProductCreated"]).not.toContain(eventHandler)
+    })
 })
