@@ -28,7 +28,6 @@ export default class EventDispatcher implements EventDispatchInterface{
 
     notify(event: EventInterface): void {
         const eventName = event.constructor.name;
-        console.log("Event name: ", eventName)
         if (!this.eventHandlers[eventName]) {
             return;
         }
