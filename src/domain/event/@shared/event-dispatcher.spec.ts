@@ -4,7 +4,7 @@ import EventDispatcher from "./event-dispatcher";
 
 describe("Domain events unit tests", () => {
     it("Should register an event handler", () => {
-        const eventDispatcher = new EventDispatcher();
+        const eventDispatcher = EventDispatcher.create();
         const eventHandler = new SendEmailWhenProductIsCreatedHandler();
 
         eventDispatcher.register("ProductCreated", eventHandler);
@@ -15,7 +15,8 @@ describe("Domain events unit tests", () => {
         
     })
     it("Should unregister an event handler", () => {
-        const eventDispatcher = new EventDispatcher();
+        const eventDispatcher =  EventDispatcher.create();
+        eventDispatcher.unregisterAll()
         const eventHandler = new SendEmailWhenProductIsCreatedHandler();
 
         eventDispatcher.register("ProductCreated", eventHandler);
@@ -26,7 +27,8 @@ describe("Domain events unit tests", () => {
         expect(eventDispatcher.getEventHandlers["ProductCreated"]).not.toContain(eventHandler)
     })
     it("Should not register duplicated handlers", () => {
-        const eventDispatcher = new EventDispatcher();
+        const eventDispatcher = EventDispatcher.create();
+        eventDispatcher.unregisterAll();
         const eventHandler = new SendEmailWhenProductIsCreatedHandler();
 
         eventDispatcher.register("ProductCreated", eventHandler);
@@ -37,7 +39,7 @@ describe("Domain events unit tests", () => {
         expect(eventDispatcher.getEventHandlers["ProductCreated"]).toContain(eventHandler)
     })
     it("Should unregister all handlers", () => {
-        const eventDispatcher = new EventDispatcher();
+        const eventDispatcher = EventDispatcher.create();
         const eventHandler = new SendEmailWhenProductIsCreatedHandler();
         
         eventDispatcher.register("ProductCreated", eventHandler);
@@ -48,7 +50,7 @@ describe("Domain events unit tests", () => {
     })
     
     it("Should notify all handlers", () => {
-        const eventDispatcher = new EventDispatcher();
+        const eventDispatcher = EventDispatcher.create();
         const eventHandler = new SendEmailWhenProductIsCreatedHandler();
         const handleSpy = jest.spyOn(eventHandler, "handle");
         
