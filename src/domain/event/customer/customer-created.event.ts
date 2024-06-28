@@ -6,13 +6,6 @@ type CustomerCreatedEventData = {
   email: string;
   rewardPoints: number;
   active: boolean;
-  address: {
-    street: string;
-    number: number;
-    city: string;
-    zip: string;
-    state: string;
-  };
 };
 
 

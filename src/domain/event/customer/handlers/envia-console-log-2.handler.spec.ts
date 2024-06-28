@@ -10,13 +10,6 @@ describe('EnviaConsoleLog2Handler', () => {
           email: "any_email",
           rewardPoints: 0,
           active: true,
-          address: {
-            street: "any_street",
-            number: 0,
-            city: "any_city",
-            zip: "any_zip",
-            state: "any_state",
-          },
         });
         const consoleSpy = jest.spyOn(console, 'log');
 
